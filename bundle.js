@@ -215,6 +215,38 @@ var Charts = function (_Component) {
       return [['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"];
     }
   }, {
+    key: 'divideByState',
+    value: function divideByState() {
+      var states = {};
+
+      var idx = 0;
+
+      while (idx < this.props.data.results.length - 1) {
+        var state = this.props.data.results[idx].location.state;
+
+        if (states[state]) {
+          states[state] += 1;
+        } else {
+          states[state] = 1;
+        }
+
+        idx += 1;
+      }
+
+      var sortable = [];
+      for (var vehicle in states) {
+        sortable.push([vehicle, states[vehicle]]);
+      }
+
+      sortable.sort(function (a, b) {
+        return a[1] - b[1];
+      });
+
+      var topStates = sortable.reverse().slice(0, 10);
+
+      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Division by State"];
+    }
+  }, {
     key: 'drawCharts',
     value: function drawCharts() {
       var chartsToDraw = [];
@@ -224,6 +256,8 @@ var Charts = function (_Component) {
       chartsToDraw.push(this.divideByGender());
       chartsToDraw.push(this.divideByFirstName(beginningAlphabet, endingAlphabet));
       chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet));
+      chartsToDraw.push(this.divideByState());
+      // this.divideByState();
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
@@ -238,8 +272,9 @@ var Charts = function (_Component) {
       data.addColumn('number', 'Number');
 
       var rowsToAdd = [];
+      debugger;
       rowsToAdd.push.apply(rowsToAdd, _toConsumableArray(rows));
-
+      // debugger
       data.addRows(rowsToAdd);
 
       // Set chart options
@@ -258,7 +293,7 @@ var Charts = function (_Component) {
     key: 'render',
     value: function render() {
       google.charts.setOnLoadCallback(this.drawCharts);
-      // console.log(this.props.data.results.filter(person => person.gender === "male"))
+      console.log(this.props.data.results);
       return _react2.default.createElement(
         'div',
         null,
