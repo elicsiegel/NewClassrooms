@@ -168,58 +168,67 @@ var Charts = function (_Component) {
   }
 
   _createClass(Charts, [{
-    key: 'drawCharts',
-    value: function drawCharts() {
-      var chartsToDraw = [];
-
+    key: 'divideByGender',
+    value: function divideByGender() {
       var numMale = this.props.data.results.filter(function (person) {
         return person.gender === "male";
       }).length;
       var numFemale = this.props.data.results.filter(function (person) {
         return person.gender === "female";
       }).length;
-      chartsToDraw.push([['Male', numMale], ["Female", numFemale], "Division By Gender"]);
-
-      var beginningAlphabet = "abcdefghijklm".split("");
-      var endingAlphabet = "nopqrstuvwxyz".split("");
+      return [['Male', numMale], ["Female", numFemale], "Division By Gender"];
+    }
+  }, {
+    key: 'divideByFirstName',
+    value: function divideByFirstName(begin, ending) {
 
       var beginningName = this.props.data.results.filter(function (person) {
         if (person.name.first) {
-          return beginningAlphabet.includes(person.name.first[0]);
+          return begin.includes(person.name.first[0]);
         }
       }).length;
 
       var endingName = this.props.data.results.filter(function (person) {
 
         if (person.name.first) {
-          return endingAlphabet.includes(person.name.first[0]);
+          return ending.includes(person.name.first[0]);
         }
       }).length;
-      chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"]);
 
+      return [['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"];
+    }
+  }, {
+    key: 'divideByLastName',
+    value: function divideByLastName(begin, ending) {
       var beginningLastName = this.props.data.results.filter(function (person) {
         if (person.name.last) {
-          return beginningAlphabet.includes(person.name.last[0]);
+          return begin.includes(person.name.last[0]);
         }
       }).length;
 
       var endingLastName = this.props.data.results.filter(function (person) {
 
         if (person.name.last) {
-          return endingAlphabet.includes(person.name.last[0]);
+          return ending.includes(person.name.last[0]);
         }
       }).length;
-      chartsToDraw.push([['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"]);
+      return [['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"];
+    }
+  }, {
+    key: 'drawCharts',
+    value: function drawCharts() {
+      var chartsToDraw = [];
+      var beginningAlphabet = "abcdefghijklm".split("");
+      var endingAlphabet = "nopqrstuvwxyz".split("");
+
+      chartsToDraw.push(this.divideByGender());
+      chartsToDraw.push(this.divideByFirstName(beginningAlphabet, endingAlphabet));
+      chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet));
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
         this.drawChart(chartsToDraw[i], title);
       };
-      // this.drawChart(chartsToDraw[0])
-
-      // this.drawChart
-      // const filtered = this.props.data.results.filter(person => person.gender === "female" && person.name.first.length  === person.name.last.length)
-      // console.log(filtered)
     }
   }, {
     key: 'drawChart',

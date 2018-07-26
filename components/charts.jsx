@@ -10,54 +10,62 @@ class Charts extends Component {
     this.drawChart = this.drawChart.bind(this);
   }
 
-  drawCharts() {
-    const chartsToDraw = [];
-
+  divideByGender() {
     const numMale = this.props.data.results.filter(person => person.gender === "male").length
     const numFemale = this.props.data.results.filter(person => person.gender === "female").length
-    chartsToDraw.push([['Male', numMale], ["Female", numFemale], "Division By Gender"]);
+    return [['Male', numMale], ["Female", numFemale], "Division By Gender"];
+  }
 
-    const beginningAlphabet = "abcdefghijklm".split("");
-    const endingAlphabet = "nopqrstuvwxyz".split("");
+  divideByFirstName(begin, ending) {
 
     const beginningName = this.props.data.results.filter(function(person) {
       if (person.name.first) {
-        return beginningAlphabet.includes(person.name.first[0])
+        return begin.includes(person.name.first[0])
       }
       }).length
 
     const endingName = this.props.data.results.filter(function(person) {
       
       if (person.name.first) {
-        return endingAlphabet.includes(person.name.first[0])
+        return ending.includes(person.name.first[0])
       }
       }).length
-    chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"]);
 
+    return [['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"]; 
+
+  }
+
+  divideByLastName(begin, ending) {
     const beginningLastName = this.props.data.results.filter(function(person) {
       if (person.name.last) {
-        return beginningAlphabet.includes(person.name.last[0])
+        return begin.includes(person.name.last[0])
       }
       }).length
 
     const endingLastName = this.props.data.results.filter(function(person) {
       
       if (person.name.last) {
-        return endingAlphabet.includes(person.name.last[0])
+        return ending.includes(person.name.last[0])
       }
       }).length
-    chartsToDraw.push([['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"]);
+    return [['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"];
+  }
+
+  drawCharts() {
+    const chartsToDraw = [];
+    const beginningAlphabet = "abcdefghijklm".split("");
+    const endingAlphabet = "nopqrstuvwxyz".split("");
+
+    chartsToDraw.push(this.divideByGender());
+    chartsToDraw.push(this.divideByFirstName(beginningAlphabet, endingAlphabet));
+    chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet))
+    
 
     
     for (var i = 0; i <= chartsToDraw.length - 1; i++) {
       const title = chartsToDraw[i].pop();
       this.drawChart(chartsToDraw[i], title);
     };
-    // this.drawChart(chartsToDraw[0])
-    
-    // this.drawChart
-    // const filtered = this.props.data.results.filter(person => person.gender === "female" && person.name.first.length  === person.name.last.length)
-    // console.log(filtered)
   }
 
   drawChart(rows, title) {
