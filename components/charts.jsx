@@ -27,7 +27,10 @@ class Charts extends Component {
                    'height':300};
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var chart_element = document.createElement("div");
+    document.getElementById("charts_div").appendChild(chart_element);
+
+    var chart = new google.visualization.PieChart(chart_element);
     chart.draw(data, options);
   }
 
@@ -36,8 +39,8 @@ class Charts extends Component {
     
     return(
       <div>
-        Charts
-        <div id="chart_div">
+        <h1>Charts</h1>
+        <div id="charts_div">
         </div>
       </div>
     );
