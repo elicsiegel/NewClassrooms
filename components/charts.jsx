@@ -15,13 +15,12 @@ class Charts extends Component {
 
     const numMale = this.props.data.results.filter(person => person.gender === "male").length
     const numFemale = this.props.data.results.filter(person => person.gender === "female").length
-    chartsToDraw.push([['Male', numMale], ["Female", numFemale]]);
+    chartsToDraw.push([['Male', numMale], ["Female", numFemale], "Division By Gender"]);
 
     const beginningAlphabet = "abcdefghijklm".split("");
     const endingAlphabet = "nopqrstuvwxyz".split("");
 
     const beginningName = this.props.data.results.filter(function(person) {
-      // debugger
       if (person.name.first) {
         return beginningAlphabet.includes(person.name.first[0])
       }
@@ -33,11 +32,26 @@ class Charts extends Component {
         return endingAlphabet.includes(person.name.first[0])
       }
       }).length
-    chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName]]);
+    chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"]);
+
+    const beginningLastName = this.props.data.results.filter(function(person) {
+      if (person.name.last) {
+        return beginningAlphabet.includes(person.name.last[0])
+      }
+      }).length
+
+    const endingLastName = this.props.data.results.filter(function(person) {
+      
+      if (person.name.last) {
+        return endingAlphabet.includes(person.name.last[0])
+      }
+      }).length
+    chartsToDraw.push([['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"]);
 
     
     for (var i = 0; i <= chartsToDraw.length - 1; i++) {
-      this.drawChart(chartsToDraw[i]);
+      const title = chartsToDraw[i].pop();
+      this.drawChart(chartsToDraw[i], title);
     };
     // this.drawChart(chartsToDraw[0])
     
@@ -47,7 +61,6 @@ class Charts extends Component {
   }
 
   drawChart(rows, title) {
-    debugger
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Category');
     data.addColumn('number', 'Number');
@@ -58,7 +71,7 @@ class Charts extends Component {
     data.addRows(rowsToAdd);
 
     // Set chart options
-    var options = {'title':'How Much Pizza I Ate Last Night',
+    var options = {'title': title,
                    'width':400,
                    'height':300};
 

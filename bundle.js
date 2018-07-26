@@ -178,13 +178,12 @@ var Charts = function (_Component) {
       var numFemale = this.props.data.results.filter(function (person) {
         return person.gender === "female";
       }).length;
-      chartsToDraw.push([['Male', numMale], ["Female", numFemale]]);
+      chartsToDraw.push([['Male', numMale], ["Female", numFemale], "Division By Gender"]);
 
       var beginningAlphabet = "abcdefghijklm".split("");
       var endingAlphabet = "nopqrstuvwxyz".split("");
 
       var beginningName = this.props.data.results.filter(function (person) {
-        // debugger
         if (person.name.first) {
           return beginningAlphabet.includes(person.name.first[0]);
         }
@@ -196,10 +195,25 @@ var Charts = function (_Component) {
           return endingAlphabet.includes(person.name.first[0]);
         }
       }).length;
-      chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName]]);
+      chartsToDraw.push([['Names beginning with A-M', beginningName], ["Names beginning with N-Z", endingName], "Division by First Name"]);
+
+      var beginningLastName = this.props.data.results.filter(function (person) {
+        if (person.name.last) {
+          return beginningAlphabet.includes(person.name.last[0]);
+        }
+      }).length;
+
+      var endingLastName = this.props.data.results.filter(function (person) {
+
+        if (person.name.last) {
+          return endingAlphabet.includes(person.name.last[0]);
+        }
+      }).length;
+      chartsToDraw.push([['Last names beginning with A-M', beginningLastName], ["Last names beginning with N-Z", endingLastName], "Division By Last Name"]);
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
-        this.drawChart(chartsToDraw[i]);
+        var title = chartsToDraw[i].pop();
+        this.drawChart(chartsToDraw[i], title);
       };
       // this.drawChart(chartsToDraw[0])
 
@@ -210,7 +224,6 @@ var Charts = function (_Component) {
   }, {
     key: 'drawChart',
     value: function drawChart(rows, title) {
-      debugger;
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Category');
       data.addColumn('number', 'Number');
@@ -221,7 +234,7 @@ var Charts = function (_Component) {
       data.addRows(rowsToAdd);
 
       // Set chart options
-      var options = { 'title': 'How Much Pizza I Ate Last Night',
+      var options = { 'title': title,
         'width': 400,
         'height': 300 };
 
