@@ -281,6 +281,40 @@ var Charts = function (_Component) {
       return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Females in Top Ten States"];
     }
   }, {
+    key: 'percentOfMalesinEachState',
+    value: function percentOfMalesinEachState() {
+      var states = {};
+
+      var idx = 0;
+
+      while (idx < this.props.data.results.length - 1) {
+        if (this.props.data.results[idx].gender === "male") {
+          var state = this.props.data.results[idx].location.state;
+
+          if (states[state]) {
+            states[state] += 1;
+          } else {
+            states[state] = 1;
+          }
+        }
+        idx += 1;
+      }
+
+      var sortable = [];
+      for (var vehicle in states) {
+        sortable.push([vehicle, states[vehicle]]);
+      }
+
+      sortable.sort(function (a, b) {
+        return a[1] - b[1];
+      });
+
+      var topStates = sortable.reverse().slice(0, 10);
+
+      // console.log(topStates)
+      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Males in Top Ten States"];
+    }
+  }, {
     key: 'drawCharts',
     value: function drawCharts() {
       var chartsToDraw = [];
@@ -292,6 +326,7 @@ var Charts = function (_Component) {
       chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet));
       chartsToDraw.push(this.divideByState());
       chartsToDraw.push(this.percentOfFemalesinEachState());
+      chartsToDraw.push(this.percentOfMalesinEachState());
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
@@ -306,15 +341,15 @@ var Charts = function (_Component) {
       data.addColumn('number', 'Number');
 
       var rowsToAdd = [];
-      debugger;
+      // debugger
       rowsToAdd.push.apply(rowsToAdd, _toConsumableArray(rows));
       // debugger
       data.addRows(rowsToAdd);
 
       // Set chart options
       var options = { 'title': title,
-        'width': 400,
-        'height': 300 };
+        'width': 800,
+        'height': 500 };
 
       // Instantiate and draw our chart, passing in some options.
       var chart_element = document.createElement("div");

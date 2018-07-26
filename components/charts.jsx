@@ -116,6 +116,40 @@ class Charts extends Component {
       return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Females in Top Ten States"];
   }
 
+  percentOfMalesinEachState() {
+    const states = {};
+
+    let idx = 0;
+
+    while (idx < this.props.data.results.length -1) {
+      if (this.props.data.results[idx].gender === "male") {
+        const state = this.props.data.results[idx].location.state
+
+        if (states[state]) {
+          states[state] += 1;
+        } else {
+          states[state] = 1;
+        }
+
+      }
+        idx += 1;
+    }
+
+      var sortable = [];
+      for (var vehicle in states) {
+          sortable.push([vehicle, states[vehicle]]);
+      }
+
+      sortable.sort(function(a, b) {
+          return a[1] - b[1];
+      });
+     
+      const topStates = sortable.reverse().slice(0, 10);
+
+      // console.log(topStates)
+      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Males in Top Ten States"];
+  }
+
   drawCharts() {
     const chartsToDraw = [];
     const beginningAlphabet = "abcdefghijklm".split("");
@@ -126,7 +160,8 @@ class Charts extends Component {
     chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet))
     chartsToDraw.push(this.divideByState())
     chartsToDraw.push(this.percentOfFemalesinEachState());
-    
+    chartsToDraw.push(this.percentOfMalesinEachState());
+
     for (var i = 0; i <= chartsToDraw.length - 1; i++) {
       const title = chartsToDraw[i].pop();
       this.drawChart(chartsToDraw[i], title);
@@ -139,15 +174,15 @@ class Charts extends Component {
     data.addColumn('number', 'Number');
 
     const rowsToAdd = []
-    debugger
+    // debugger
     rowsToAdd.push(...rows)
     // debugger
     data.addRows(rowsToAdd);
 
     // Set chart options
     var options = {'title': title,
-                   'width':400,
-                   'height':300};
+                   'width':800,
+                   'height':500};
 
     // Instantiate and draw our chart, passing in some options.
     var chart_element = document.createElement("div");
