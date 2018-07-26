@@ -162,6 +162,8 @@ class Charts extends Component {
     chartsToDraw.push(this.percentOfFemalesinEachState());
     chartsToDraw.push(this.percentOfMalesinEachState());
 
+    this.divisionByAge();
+
     for (var i = 0; i <= chartsToDraw.length - 1; i++) {
       const title = chartsToDraw[i].pop();
       this.drawChart(chartsToDraw[i], title);
@@ -190,6 +192,57 @@ class Charts extends Component {
 
     var chart = new google.visualization.PieChart(chart_element);
     chart.draw(data, options);
+  }
+
+  divisionByAge() {
+    const ageRanges = {
+      "0-20": 0,
+      "21-40": 0,
+      "41-60": 0,
+      "61-80": 0,
+      "81-100": 0,
+      "100 +": 0
+    };
+
+    let idx = 0;
+
+    while (idx < this.props.data.results.length -1) {
+      const age = this.props.data.results[idx].dob.age
+
+      if (age < 21) {
+        ageRanges["0-20"] += 1;
+      }
+      if (age > 20 && age < 41) {
+        ageRanges["21-40"] += 1;
+      }
+      if (age > 40 && age < 61) {
+        ageRanges["41-60"] += 1;
+      }
+      if (age > 60 && age < 81) {
+        ageRanges["61-80"] += 1;
+      }
+      if (age > 80 && age < 101) {
+        ageRanges["81-100"] += 1;
+      }
+      if (age > 100) {
+        ageRanges["100 +"] += 1;
+      }
+
+      idx += 1;
+    }
+
+    var sortable = [];
+    for (var vehicle in ageRanges) {
+        sortable.push([vehicle, ageRanges[vehicle]]);
+    }
+
+    sortable.sort(function(a, b) {
+        return a[1] - b[1];
+    });
+   
+    const topStates = sortable.reverse().slice(0, 10);
+    console.log(topStates)
+    // return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Division by State"];
   }
 
   render() {
