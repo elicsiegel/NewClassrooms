@@ -247,6 +247,40 @@ var Charts = function (_Component) {
       return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Division by State"];
     }
   }, {
+    key: 'percentOfFemalesinEachState',
+    value: function percentOfFemalesinEachState() {
+      var states = {};
+
+      var idx = 0;
+
+      while (idx < this.props.data.results.length - 1) {
+        if (this.props.data.results[idx].gender === "female") {
+          var state = this.props.data.results[idx].location.state;
+
+          if (states[state]) {
+            states[state] += 1;
+          } else {
+            states[state] = 1;
+          }
+        }
+        idx += 1;
+      }
+
+      var sortable = [];
+      for (var vehicle in states) {
+        sortable.push([vehicle, states[vehicle]]);
+      }
+
+      sortable.sort(function (a, b) {
+        return a[1] - b[1];
+      });
+
+      var topStates = sortable.reverse().slice(0, 10);
+
+      // console.log(topStates)
+      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Females in Top Ten States"];
+    }
+  }, {
     key: 'drawCharts',
     value: function drawCharts() {
       var chartsToDraw = [];
@@ -257,7 +291,7 @@ var Charts = function (_Component) {
       chartsToDraw.push(this.divideByFirstName(beginningAlphabet, endingAlphabet));
       chartsToDraw.push(this.divideByLastName(beginningAlphabet, endingAlphabet));
       chartsToDraw.push(this.divideByState());
-      // this.divideByState();
+      chartsToDraw.push(this.percentOfFemalesinEachState());
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
