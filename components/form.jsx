@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Charts from './charts';
 
 class Form extends Component {
 
@@ -18,8 +19,12 @@ class Form extends Component {
   render() {
     return(
       <div>
-        <h1>Enter your info</h1>
-        <input onChange={this.updateInfo}/>
+        <div>
+          <h1>Paste your JSON</h1>
+          <input onChange={this.updateInfo}/>
+          <button>See the data in charts</button>
+        </div>
+        <Charts />
       </div>
     );
   
