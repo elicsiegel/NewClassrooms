@@ -251,8 +251,12 @@ class Charts extends Component {
     
     return(
       <div>
-        <h1>Charts</h1>
+        
         <div id="charts_div">
+          <div id="title_div">
+            <h1>Charts</h1>
+            <p>(refresh to enter a new number)</p>
+          </div>
         </div>
       </div>
     );
