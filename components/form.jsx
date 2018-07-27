@@ -43,7 +43,8 @@ class Form extends Component {
       <div>
         <div id="data-entry">
           <h1>Enter the Number of Users you want to fetch</h1>
-          <input id="myInput"/>
+          <p>Data pulled in from randomuser.me</p>
+          <input placeholder="Num of Users" id="myInput"/>
           <button onClick={this.fetchUserData}>See the data in charts</button>
         </div>
         <Charts data={this.state.text}/>
