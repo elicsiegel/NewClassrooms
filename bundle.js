@@ -327,8 +327,8 @@ var Charts = function (_Component) {
       chartsToDraw.push(this.divideByState());
       chartsToDraw.push(this.percentOfFemalesinEachState());
       chartsToDraw.push(this.percentOfMalesinEachState());
-
-      this.divisionByAge();
+      chartsToDraw.push(this.divisionByAge());
+      // this.divisionByAge();
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
@@ -410,7 +410,7 @@ var Charts = function (_Component) {
 
       var topStates = sortable.reverse().slice(0, 10);
       console.log(topStates);
-      // return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Division by State"];
+      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], "Division by Age"];
     }
   }, {
     key: 'render',
