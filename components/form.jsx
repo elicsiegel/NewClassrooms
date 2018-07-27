@@ -6,37 +6,53 @@ class Form extends Component {
   constructor() {
     super();
     this.state = {
-      text: "",
-      exampleText: x
+      text: null
     }
-    this.updateInfo = this.updateInfo.bind(this)
+    this.textInput = React.createRef();
+    this.updateInfo = this.updateInfo.bind(this);
+    this.fetchUserData = this.fetchUserData.bind(this);
   }
 
   updateInfo(event){
     const searchQuery = event.target.value;
-
     this.setState({text: searchQuery})
-
+    
+    document.getElementById("data-entry").setAttribute("display", "none");
     console.log(this.state)
-    // const filtered = searchQuery.results.filter(person => person.gender === "female" && person.name.first.length  === person.name.last.length)
+  }
 
-    // console.log(filtered);
+  fetchUserData() {
+    var that = this;
+    var x = document.getElementById("myInput").value;
+  
+    $.ajax({
+      url: 'https://randomuser.me/api/?results=' + x,
+      dataType: 'json',
+      success: function(data) {
+        document.getElementById("data-entry").setAttribute("style", "display: none;");
+        that.setState({
+          text: data
+        });
+      }
+    });
+
   }
 
   render() {
     return(
       <div>
-        <div>
-          <h1>Paste your JSON</h1>
-          <input onChange={this.updateInfo}/>
-          <button>See the data in charts</button>
+        <div id="data-entry">
+          <h1>Enter the Number of Users you want to fetch</h1>
+          <input id="myInput"/>
+          <button onClick={this.fetchUserData}>See the data in charts</button>
         </div>
-        <Charts data={this.state.exampleText}/>
+        <Charts data={this.state.text}/>
       </div>
     );
   
   }
 }
+
 
 var x = {
 results: [

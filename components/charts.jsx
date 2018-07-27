@@ -246,8 +246,9 @@ class Charts extends Component {
   }
 
   render() {
+    if (!this.props.data) return null;
     google.charts.setOnLoadCallback(this.drawCharts);
-    console.log(this.props.data.results)
+    
     return(
       <div>
         <h1>Charts</h1>
