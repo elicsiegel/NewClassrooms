@@ -60,18 +60,19 @@ class Form extends Component {
     return(
       <div>
         <div id="data-entry">
-          <div>
+          <div className="title-div">
             <h1>Upload a JSON file containing random people</h1>
-            <input type="file" onChange={this.fileChangedHandler}/>
+            <input type="file" name="file" id="file" className="inputfile" onChange={this.fileChangedHandler}/>
+            <label htmlFor="file">Choose a file</label>
           </div>
           <p>or</p>
-          <div>
+          <div className="title-div">
             <h1>Paste your JSON object into this input</h1>
             <input onChange={this.updateInfo}/>
           </div>
           <p>or</p>
-          <div>
-            <h1>Enter the Number of Users you want to fetch randomly</h1>
+          <div className="title-div">
+            <h1>Enter the Number of Users you want to fetch randomly (max 5000)</h1>
             <p>Data pulled in from randomuser.me</p>
             <input placeholder="Num of Users" id="myInput"/>
             <button onClick={this.fetchUserData}>See the data in charts</button>

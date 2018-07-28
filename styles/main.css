@@ -6,6 +6,38 @@ button {
   font-family: 'Roboto', sans-serif;
 }
 
+.title-div {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: black;
+    display: inline-block;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: blue;
+}
+
 .hidden {
   display: none;
 }
