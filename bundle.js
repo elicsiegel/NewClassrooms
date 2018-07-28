@@ -241,10 +241,31 @@ var Charts = function (_Component) {
       sortable.sort(function (a, b) {
         return a[1] - b[1];
       });
-
+      // debugger
       var topStates = sortable.reverse().slice(0, 10);
 
-      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Division by State"];
+      var j = 10;
+      var extraData = ["other", 0];
+
+      while (j < sortable.length) {
+        extraData[1] += 1;
+        j += 1;
+      }
+
+      // debugger
+      var finalArray = [extraData];
+
+      var idx2 = 0;
+
+      while (idx2 < 10) {
+        if (topStates[idx2]) {
+          finalArray.push(topStates[idx2]);
+        }
+        idx2 += 1;
+      }
+      finalArray.push("Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
+
+      return finalArray;
     }
   }, {
     key: 'percentOfFemalesinEachState',
@@ -277,8 +298,26 @@ var Charts = function (_Component) {
 
       var topStates = sortable.reverse().slice(0, 10);
 
-      // console.log(topStates)
-      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Females in Top Ten States"];
+      var j = 10;
+      var extraData = ["other", 0];
+
+      while (j < sortable.length) {
+        extraData[1] += 1;
+        j += 1;
+      }
+      var finalArray = [extraData];
+      var idx2 = 0;
+
+      while (idx2 < 10) {
+        if (topStates[idx2]) {
+          finalArray.push(topStates[idx2]);
+        }
+        idx2 += 1;
+      }
+
+      finalArray.push("Female Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
+
+      return finalArray;
     }
   }, {
     key: 'percentOfMalesinEachState',
@@ -311,8 +350,27 @@ var Charts = function (_Component) {
 
       var topStates = sortable.reverse().slice(0, 10);
 
+      var j = 10;
+      var extraData = ["other", 0];
+
+      while (j < sortable.length) {
+        extraData[1] += 1;
+        j += 1;
+      }
+
+      var finalArray = [extraData];
+      var idx2 = 0;
+
+      while (idx2 < 10) {
+        if (topStates[idx2]) {
+          finalArray.push(topStates[idx2]);
+        }
+        idx2 += 1;
+      }
+      finalArray.push("Male Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
+
+      return finalArray;
       // console.log(topStates)
-      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], topStates[6], topStates[7], topStates[8], topStates[9], "Percent of Males in Top Ten States"];
     }
   }, {
     key: 'drawCharts',
@@ -357,7 +415,7 @@ var Charts = function (_Component) {
       var chart_element = document.createElement("div");
       document.getElementById("charts_div").appendChild(chart_element);
 
-      var chart = new google.visualization.PieChart(chart_element);
+      var chart = new google.visualization.ColumnChart(chart_element);
       chart.draw(data, options);
     }
   }, {
