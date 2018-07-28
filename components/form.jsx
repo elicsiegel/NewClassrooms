@@ -11,14 +11,31 @@ class Form extends Component {
     this.textInput = React.createRef();
     this.updateInfo = this.updateInfo.bind(this);
     this.fetchUserData = this.fetchUserData.bind(this);
+    this.fileChangedHandler = this.fileChangedHandler.bind(this);
+  }
+
+  fileChangedHandler(e) {
+    var that = this;
+    var file = e.target.files[0]
+    if (file) {
+        var reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = function (evt) {
+            var objOfFile = JSON.parse(evt.target.result);
+            document.getElementById("data-entry").setAttribute("style", "display: none;");
+            that.setState({text: objOfFile})
+        }
+        reader.onerror = function (evt) {
+          that.setState({error: "couldn't upload"})
+        }
+    }
   }
 
   updateInfo(event){
-    const searchQuery = event.target.value;
+    const searchQuery = JSON.parse(event.target.value);
     this.setState({text: searchQuery})
     
-    document.getElementById("data-entry").setAttribute("display", "none");
-    console.log(this.state)
+    document.getElementById("data-entry").setAttribute("style", "display: none;");
   }
 
   fetchUserData() {
@@ -39,13 +56,26 @@ class Form extends Component {
   }
 
   render() {
+    console.log(this.state)
     return(
       <div>
         <div id="data-entry">
-          <h1>Enter the Number of Users you want to fetch</h1>
-          <p>Data pulled in from randomuser.me</p>
-          <input placeholder="Num of Users" id="myInput"/>
-          <button onClick={this.fetchUserData}>See the data in charts</button>
+          <div>
+            <h1>Upload a JSON file containing random people</h1>
+            <input type="file" onChange={this.fileChangedHandler}/>
+          </div>
+          <p>or</p>
+          <div>
+            <h1>Paste your JSON object into this input</h1>
+            <input onChange={this.updateInfo}/>
+          </div>
+          <p>or</p>
+          <div>
+            <h1>Enter the Number of Users you want to fetch randomly</h1>
+            <p>Data pulled in from randomuser.me</p>
+            <input placeholder="Num of Users" id="myInput"/>
+            <button onClick={this.fetchUserData}>See the data in charts</button>
+          </div>
         </div>
         <Charts data={this.state.text}/>
       </div>
