@@ -56,7 +56,7 @@ class Charts extends Component {
 
     let idx = 0;
 
-    while (idx < this.props.data.results.length -1) {
+    while (idx <= this.props.data.results.length -1) {
       const state = this.props.data.results[idx].location.state
 
       if (states[state]) {
@@ -99,7 +99,7 @@ class Charts extends Component {
       idx2 += 1
     }
     finalArray.push("Population Distribution (only top 10 most populous states are highlighted, all others are included in other category")
-
+    console.log(finalArray)
     return finalArray;
   };
 
@@ -108,7 +108,7 @@ class Charts extends Component {
 
     let idx = 0;
 
-    while (idx < this.props.data.results.length -1) {
+    while (idx <= this.props.data.results.length -1) {
       if (this.props.data.results[idx].gender === "female") {
         const state = this.props.data.results[idx].location.state
 
@@ -160,7 +160,7 @@ class Charts extends Component {
 
     let idx = 0;
 
-    while (idx < this.props.data.results.length -1) {
+    while (idx <= this.props.data.results.length -1) {
       if (this.props.data.results[idx].gender === "male") {
         const state = this.props.data.results[idx].location.state
 
@@ -264,7 +264,7 @@ class Charts extends Component {
 
     let idx = 0;
 
-    while (idx < this.props.data.results.length -1) {
+    while (idx <= this.props.data.results.length -1) {
       const age = this.props.data.results[idx].dob.age
 
       if (age < 21) {
@@ -313,7 +313,7 @@ class Charts extends Component {
         <div id="charts_div">
           <div id="title_div">
             <h1>Charts</h1>
-            <p>(refresh to enter a new number)</p>
+            <p>(refresh to enter a new data set)</p>
           </div>
         </div>
       </div>

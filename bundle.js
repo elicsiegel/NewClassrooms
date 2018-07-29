@@ -221,7 +221,7 @@ var Charts = function (_Component) {
 
       var idx = 0;
 
-      while (idx < this.props.data.results.length - 1) {
+      while (idx <= this.props.data.results.length - 1) {
         var state = this.props.data.results[idx].location.state;
 
         if (states[state]) {
@@ -264,7 +264,7 @@ var Charts = function (_Component) {
         idx2 += 1;
       }
       finalArray.push("Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
-
+      console.log(finalArray);
       return finalArray;
     }
   }, {
@@ -274,7 +274,7 @@ var Charts = function (_Component) {
 
       var idx = 0;
 
-      while (idx < this.props.data.results.length - 1) {
+      while (idx <= this.props.data.results.length - 1) {
         if (this.props.data.results[idx].gender === "female") {
           var state = this.props.data.results[idx].location.state;
 
@@ -326,7 +326,7 @@ var Charts = function (_Component) {
 
       var idx = 0;
 
-      while (idx < this.props.data.results.length - 1) {
+      while (idx <= this.props.data.results.length - 1) {
         if (this.props.data.results[idx].gender === "male") {
           var state = this.props.data.results[idx].location.state;
 
@@ -432,7 +432,7 @@ var Charts = function (_Component) {
 
       var idx = 0;
 
-      while (idx < this.props.data.results.length - 1) {
+      while (idx <= this.props.data.results.length - 1) {
         var age = this.props.data.results[idx].dob.age;
 
         if (age < 21) {
@@ -493,7 +493,7 @@ var Charts = function (_Component) {
             _react2.default.createElement(
               'p',
               null,
-              '(refresh to enter a new number)'
+              '(refresh to enter a new data set)'
             )
           )
         )
