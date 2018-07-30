@@ -466,9 +466,9 @@ var Charts = function (_Component) {
         return a[1] - b[1];
       });
 
-      var topStates = sortable.reverse().slice(0, 10);
-      console.log(topStates);
-      return [topStates[0], topStates[1], topStates[2], topStates[3], topStates[4], topStates[5], "Division by Age"];
+      var finalAges = sortable.reverse().slice(0, 10);
+
+      return [finalAges[0], finalAges[1], finalAges[2], finalAges[3], finalAges[4], finalAges[5], "Division by Age"];
     }
   }, {
     key: 'render',
