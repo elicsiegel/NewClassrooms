@@ -79,8 +79,7 @@ class Form extends Component {
         </div>
         <Charts data={this.state.text}/>
       </div>
-    );
-  
+    );  
   }
 }
 
