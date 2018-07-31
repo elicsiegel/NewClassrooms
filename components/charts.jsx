@@ -76,7 +76,7 @@ class Charts extends Component {
     sortable.sort(function(a, b) {
         return a[1] - b[1];
     });
-   // debugger
+   
     const topStates = sortable.reverse().slice(0, 10);
 
     var j = 10;
@@ -87,7 +87,7 @@ class Charts extends Component {
       j += 1;
     }
 
-    // debugger
+    
     const finalArray = [extraData];
 
     var idx2 = 0
@@ -99,7 +99,7 @@ class Charts extends Component {
       idx2 += 1
     }
     finalArray.push("Population Distribution (only top 10 most populous states are highlighted, all others are included in other category")
-    console.log(finalArray)
+    
     return finalArray;
   };
 
@@ -205,7 +205,6 @@ class Charts extends Component {
       finalArray.push("Male Population Distribution (only top 10 most populous states are highlighted, all others are included in other category")
 
       return finalArray;
-      // console.log(topStates)
   }
 
   drawCharts() {
@@ -220,7 +219,6 @@ class Charts extends Component {
     chartsToDraw.push(this.percentOfFemalesinEachState());
     chartsToDraw.push(this.percentOfMalesinEachState());
     chartsToDraw.push(this.divisionByAge());
-    // this.divisionByAge();
 
     for (var i = 0; i <= chartsToDraw.length - 1; i++) {
       const title = chartsToDraw[i].pop();
@@ -234,9 +232,8 @@ class Charts extends Component {
     data.addColumn('number', 'Number');
 
     const rowsToAdd = []
-    // debugger
+    
     rowsToAdd.push(...rows)
-    // debugger
     data.addRows(rowsToAdd);
 
     // Set chart options
@@ -308,8 +305,7 @@ class Charts extends Component {
     google.charts.setOnLoadCallback(this.drawCharts);
     
     return(
-      <div>
-        
+      <div>  
         <div id="charts_div">
           <div id="title_div">
             <h1>Charts</h1>

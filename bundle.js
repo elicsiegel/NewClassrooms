@@ -241,7 +241,7 @@ var Charts = function (_Component) {
       sortable.sort(function (a, b) {
         return a[1] - b[1];
       });
-      // debugger
+
       var topStates = sortable.reverse().slice(0, 10);
 
       var j = 10;
@@ -252,7 +252,6 @@ var Charts = function (_Component) {
         j += 1;
       }
 
-      // debugger
       var finalArray = [extraData];
 
       var idx2 = 0;
@@ -264,7 +263,7 @@ var Charts = function (_Component) {
         idx2 += 1;
       }
       finalArray.push("Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
-      console.log(finalArray);
+
       return finalArray;
     }
   }, {
@@ -370,7 +369,6 @@ var Charts = function (_Component) {
       finalArray.push("Male Population Distribution (only top 10 most populous states are highlighted, all others are included in other category");
 
       return finalArray;
-      // console.log(topStates)
     }
   }, {
     key: 'drawCharts',
@@ -386,7 +384,6 @@ var Charts = function (_Component) {
       chartsToDraw.push(this.percentOfFemalesinEachState());
       chartsToDraw.push(this.percentOfMalesinEachState());
       chartsToDraw.push(this.divisionByAge());
-      // this.divisionByAge();
 
       for (var i = 0; i <= chartsToDraw.length - 1; i++) {
         var title = chartsToDraw[i].pop();
@@ -401,9 +398,8 @@ var Charts = function (_Component) {
       data.addColumn('number', 'Number');
 
       var rowsToAdd = [];
-      // debugger
+
       rowsToAdd.push.apply(rowsToAdd, _toConsumableArray(rows));
-      // debugger
       data.addRows(rowsToAdd);
 
       // Set chart options
