@@ -56,7 +56,6 @@ class Form extends Component {
   }
 
   render() {
-    console.log(this.state)
     return(
       <div>
         <div id="data-entry">

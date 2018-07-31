@@ -600,7 +600,6 @@ var Form = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state);
       return _react2.default.createElement(
         'div',
         null,
